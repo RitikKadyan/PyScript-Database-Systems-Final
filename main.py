@@ -1,7 +1,7 @@
 import sqlite3
 import pandas as pd
 
-#python -m http.server | Command to host local server 
+#python -m http.server 80 | Command to host local server | localhost/file name
 db = sqlite3.connect("data.db")
 c = db.cursor()
 
