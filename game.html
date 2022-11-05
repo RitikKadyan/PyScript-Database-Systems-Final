@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Final</title>
-    <link rel="stylesheet" href="tableStyle.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     <py-config>
@@ -14,14 +14,30 @@
   </head>
 
   <body>
-    <!--This pyscript code will print from the showgames table-->
-    
+    <ul>
+      <li>
+        <a href="/index.html">Home</a>
+      </li>
+      <li>
+        <a role="link" aria-disabled="true">Games Table</a>
+      </li>
+      <li>
+        <a href="">Other Table</a>
+      </li>
+    </ul>
+    <center>
+      <div>
+        <a href="game-view.html" class="centerA">View Table</a><br>
+        <a class="centerA">Insert Into Table</a><br>
+        <a class="centerA">Edit From Table</a><br>
+        <a class="centerA">Delete From Table</a><br>
+      </div>
+    </center>
+    <!--
     <py-script>
         from main import *
         showGames()
     </py-script>
-    
-  </body>
-    
+    -->
   </body>
 </html>
