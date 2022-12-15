@@ -9,8 +9,9 @@
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     <py-config>
         packages = ["pandas"]
-        paths = ["main.py", "data.db"]
+        paths = ["main.py", "dat.db"]
     </py-config>
+    <py-script src="./main.py"></py-script>
   </head>
 
   <body>
@@ -25,14 +26,69 @@
         <a href="">Other Table</a>
       </li>
     </ul>
-    <center>
+  
+    <p id="table-output"></p>
+
+    <div>
+      <input id="game-input" type="text">
+      <input id="game-qty-input" type="number">
+      <br>
+      <button id="insert-btn" type="submit" py-onClick="clear()" value="Show Table">
+        Clear Screen
+      </button>
+      <button id="insert-btn" type="submit" py-onClick="showGame()" value="Show Table">
+        Show Table
+      </button>
+      <button id="insert-btn" type="submit" py-onClick="insertIntoGame()" value="Insert Into Table">
+        Insert Into Table
+      </button>
+      <button id="insert-btn" type="submit" py-onClick="test_insert()" value="test insert">
+        test
+      </button>
+
+      <py-script>
+        import sqlite3
+
+        db = sqlite3.connect("dat.db")
+        c = db.cursor()
+
+        def clear(*args, **kwargs):
+          Element('table-output').element.innerHTML = ''
+
+        def showGame(*args, **kwargs):
+          db = sqlite3.connect("dat.db")
+          c = db.cursor()
+          sql_query = pd.read_sql_query('''SELECT * FROM games''', db)
+          df = pd.DataFrame(sql_query, columns=['g_id', 'g_name', "g_qty_sold"])
+          df.rename(columns={'g_id': 'ID', 'g_name': 'Name', 'g_qty_sold': 'Qty Sold'}, inplace=True)
+          Element('table-output').element.innerHTML = df.to_html(index=False)
+          c.close()
+          db.close()
+
+        def insertIntoGame(*args, **kwargs):
+          db = sqlite3.connect("dat.db")
+          c = db.cursor()
+          db.commit()
+          game_input = str(Element('game-input').element.value)
+          game_qty_input = int(Element('game-qty-input').element.value)
+          
+          c.execute("INSERT INTO games (g_name, g_qty_sold) VALUES ('{}', {})".format(game_input, game_qty_input))
+          db.commit()
+          #print(f"executed {game_input}, {game_qty_input}")
+
+          c.close()
+          db.close()
+
+      </py-script>
+      </div>
+      <!--
       <div>
         <a href="game-view.html" class="centerA">View Table</a><br>
         <a href="game-insert.html" class="centerA">Insert Into Table</a></br>
         <a class="centerA">Edit From Table</a></br>
         <a class="centerA">Delete From Table</a></br>
       </div>
-    </center>
+      -->
     <!--
     <py-script>
         from main import *

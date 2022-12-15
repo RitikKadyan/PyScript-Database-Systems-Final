@@ -15,10 +15,14 @@
 
   <body>
     <!--This pyscript code will print from the showgames table-->
-    
+    <button id="insert-btn" type="submit" py-click="a()" value="Insert Into Table">
+      Insert Into Table
+    </button>
+
     <py-script>
         from main import *
-        showGames()
+        def a():
+          print(5)
     </py-script>
     
   </body>
